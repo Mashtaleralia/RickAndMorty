@@ -36,6 +36,7 @@
 		84986A082A83D9CF00CC351A /* RMCharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84986A072A83D9CF00CC351A /* RMCharacterDetailView.swift */; };
 		84986A0A2A83DA1500CC351A /* RMCharacterDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84986A092A83DA1500CC351A /* RMCharacterDetailViewViewModel.swift */; };
 		84986A0C2A85112500CC351A /* RMFooterLoadingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84986A0B2A85112400CC351A /* RMFooterLoadingCollectionReusableView.swift */; };
+		84FE20C12A8E3C6E00E7DDF5 /* RMImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE20C02A8E3C6E00E7DDF5 /* RMImageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		84986A072A83D9CF00CC351A /* RMCharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterDetailView.swift; sourceTree = "<group>"; };
 		84986A092A83DA1500CC351A /* RMCharacterDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterDetailViewViewModel.swift; sourceTree = "<group>"; };
 		84986A0B2A85112400CC351A /* RMFooterLoadingCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMFooterLoadingCollectionReusableView.swift; sourceTree = "<group>"; };
+		84FE20C02A8E3C6E00E7DDF5 /* RMImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMImageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 		849869D52A7E532A00CC351A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				84FE20C02A8E3C6E00E7DDF5 /* RMImageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				849869D82A7E54EF00CC351A /* RMLocation.swift in Sources */,
 				849869ED2A7E6CB400CC351A /* RMEndpoint.swift in Sources */,
 				849869DA2A7E550C00CC351A /* RMCharacter.swift in Sources */,
+				84FE20C12A8E3C6E00E7DDF5 /* RMImageManager.swift in Sources */,
 				849869EB2A7E6AF600CC351A /* RMRequest.swift in Sources */,
 				849869FB2A80F3A900CC351A /* RMCharacterListViewViewModel.swift in Sources */,
 				849869DF2A7E55D500CC351A /* RMCharacterViewController.swift in Sources */,
