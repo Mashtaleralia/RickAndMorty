@@ -9,46 +9,60 @@ import UIKit
 final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     static let identifier = "RMCharacterInfoCollectionViewCell"
     
-    private let valueLabel: UILabel = {
+    private let speciesLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 22, weight: .light)
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .white
         return label
     }()
     
-    private let titleLabel: UILabel = {
+    private let typeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     
-    private let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
+    private let genderLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
     }()
+
     
-    private let titleContainerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .secondarySystemBackground
-        return view
-    }()
+    private func makeLabels() {
+        let labelNames = ["Species:", "Type:", "Gender:"]
+        var prev = contentView.topAnchor
+        for i in 0 ..< labelNames.count {
+            let label = UILabel()
+            label.text = labelNames[i]
+            label.textColor = UIColor(red: 0.77, green: 0.79, blue: 0.81, alpha: 1)
+            label.font = .systemFont(ofSize: 16)
+            contentView.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+            label.topAnchor.constraint(equalTo: prev, constant: 16).isActive = true
+            prev = label.bottomAnchor
+        }
+    }
     
     // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .tertiarySystemBackground
-        contentView.layer.cornerRadius = 8
+        contentView.backgroundColor = UIColor(red: 0.15, green: 0.16, blue: 0.22, alpha: 1)
+        contentView.layer.cornerRadius = 16
         contentView.layer.masksToBounds = true
-        contentView.addSubviews(valueLabel, titleContainerView, iconImageView)
-        titleContainerView.addSubview(titleLabel)
+        contentView.addSubviews(genderLabel, typeLabel, speciesLabel)
         setUpConstraints()
+        makeLabels()
     }
     
     required init?(coder: NSCoder) {
@@ -57,41 +71,30 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            titleContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            titleContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.33),
-            titleLabel.leadingAnchor.constraint(equalTo: titleContainerView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: titleContainerView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
-            titleLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor),
-            
-            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            iconImageView.heightAnchor.constraint(equalToConstant: 30),
-            iconImageView.widthAnchor.constraint(equalToConstant: 30),
-            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
-            
-            valueLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
-            valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
+            speciesLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            speciesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            typeLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor, constant: 16),
+            typeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            genderLabel.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 16),
+            genderLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        valueLabel.text = nil
-        titleLabel.text = nil
-        iconImageView.image = nil
-        iconImageView.tintColor = .label
-        titleLabel.textColor = .label
+        genderLabel.text = nil
+        speciesLabel.text = nil
+        typeLabel.text = nil
     }
     
     public func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
-        titleLabel.text = viewModel.title
-               valueLabel.text = viewModel.displayValue
-               iconImageView.image = viewModel.iconImage
-               iconImageView.tintColor = viewModel.tintColor
-               titleLabel.textColor = viewModel.tintColor
+        speciesLabel.text = viewModel.species
+        genderLabel.text = viewModel.gender
+        if viewModel.type.isEmpty {
+            typeLabel.text = "None"
+        } else {
+            typeLabel.text = viewModel.type
+        }
+       
     }
 }
