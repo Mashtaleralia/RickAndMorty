@@ -48,6 +48,8 @@ class RMCharacterDetailViewController: UIViewController {
 
 //MARK: - CollectionView
 extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.sections.count
@@ -62,18 +64,23 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             return viewModels.count
         case .episodes(let viewModels):
             return viewModels.count
+        case .origin(viewModel: let viewModel):
+            return 1
         }
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sectionType = viewModel.sections[indexPath.section]
         switch sectionType {
-        case .photo, .information:
+        case .photo, .information, .origin:
             break
         case .episodes(let viewModels):
             let episodeUrl = self.viewModel.episodes
             let viewModel = viewModels[indexPath.row]
             
+       
         }
     }
     
@@ -99,7 +106,14 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             }
             cell.configure(with: viewModels[indexPath.row])
             return cell
+        case .origin(viewModel: let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterOriginCollectionViewCell.identifier, for: indexPath) as? RMCharacterOriginCollectionViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModel)
+            return cell
         }
     
     }
 }
+

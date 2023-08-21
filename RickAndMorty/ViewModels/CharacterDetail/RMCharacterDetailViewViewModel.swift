@@ -18,6 +18,7 @@ final class RMCharacterDetailViewViewModel {
     enum SectionType {
         case photo(viewModel: RMCharacterPhotoCollectionViewCellViewModel)
         case information(viewModels: [RMCharacterInfoCollectionViewCellViewModel])
+        case origin(viewModel: RMCharacterOriginCollectionViewCellViewModel)
         case episodes(viewModels: [RMCharacterEpisodeCollectionViewCellViewModel])
     }
     
@@ -43,6 +44,7 @@ final class RMCharacterDetailViewViewModel {
 //                .init(type: .created, value: character.created),
 //                .init(type: .episodeCount, value: "\(character.episode.count)")
             ]),
+            .origin(viewModel: RMCharacterOriginCollectionViewCellViewModel(url: URL(string: character.origin.url))),
             .episodes(viewModels: character.episode.compactMap({
                 return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
             }))
@@ -90,6 +92,14 @@ final class RMCharacterDetailViewViewModel {
                 heightDimension: .absolute(124.0)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
       
+        return section
+    }
+    
+    public func createOriginSectionLayout() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80)))
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 24)
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)), subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
         return section
     }
     

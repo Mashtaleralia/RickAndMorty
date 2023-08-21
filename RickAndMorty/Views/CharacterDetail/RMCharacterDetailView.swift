@@ -65,6 +65,7 @@ final class RMCharacterDetailView: UIView {
         collectionView.register(RMCharacterPhotoCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterPhotoCollectionViewCell.identifier)
         collectionView.register(RMCharacterInfoCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterInfoCollectionViewCell.identifier)
         collectionView.register(RMCharacterEpisodeCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterEpisodeCollectionViewCell.identifier)
+        collectionView.register(RMCharacterOriginCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterOriginCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }
@@ -79,6 +80,8 @@ final class RMCharacterDetailView: UIView {
             return viewModel.createInformationSectionLayout()
         case .episodes:
             return viewModel.createEpisodesSectionLayout()
+        case .origin:
+            return viewModel.createOriginSectionLayout()
         }
     }
   
