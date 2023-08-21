@@ -71,7 +71,7 @@ final class RMCharacterDetailViewViewModel {
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalHeight(0.5)), subitems: [item])
+                heightDimension: .fractionalHeight(0.4)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
       
         return section
@@ -84,13 +84,20 @@ final class RMCharacterDetailViewViewModel {
                 heightDimension: .fractionalHeight(1.0)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 2,
                                                         leading: 24,
-                                                        bottom: 2,
+                                                        bottom: 15,
                                                         trailing: 24)
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(124.0)), subitems: [item])
+                heightDimension: .absolute(139.0)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .absolute(40.0))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerHeaderSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top)
+        section.boundarySupplementaryItems = [header]
       
         return section
     }
@@ -100,6 +107,13 @@ final class RMCharacterDetailViewViewModel {
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 24, bottom: 10, trailing: 24)
         let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .absolute(40.0))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerHeaderSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top)
+        section.boundarySupplementaryItems = [header]
         return section
     }
     
@@ -110,13 +124,20 @@ final class RMCharacterDetailViewViewModel {
                 heightDimension: .fractionalHeight(1.0)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 10,
                                                         leading: 24,
-                                                        bottom: 16,
+                                                        bottom: 10,
                                                         trailing: 24)
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .absolute(112)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .absolute(40.0))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerHeaderSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top)
+        section.boundarySupplementaryItems = [header]
         return section
     }
     

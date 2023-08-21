@@ -24,7 +24,7 @@ final class RMCharacterViewController: UIViewController, RMCharacterListViewDele
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 
         navigationItem.standardAppearance = appearance
-        //navigationItem.scrollEdgeAppearance = appearance
+     
         setUpView()
     }
     

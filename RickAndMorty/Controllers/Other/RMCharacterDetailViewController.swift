@@ -27,7 +27,7 @@ class RMCharacterDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.02, green: 0.05, blue: 0.12, alpha: 1)
         view.addSubview(detailView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
         addConstarints()
         detailView.collectionView?.delegate = self
         detailView.collectionView?.dataSource = self
@@ -69,7 +69,28 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderCollectionReusableView.identifier, for: indexPath) as? SectionHeaderCollectionReusableView {
+            let sectionType = viewModel.sections[indexPath.section]
+            switch sectionType {
+            case .photo:
+                sectionHeader.textLabel.text = ""
+            case .information:
+                sectionHeader.textLabel.text = "Info"
+            case .episodes:
+                sectionHeader.textLabel.text = "Episodes"
+            case .origin:
+                sectionHeader.textLabel.text = "Origin"
+           
+        }
+            return sectionHeader
+    }
+        return UICollectionReusableView()
+}
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 40)
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sectionType = viewModel.sections[indexPath.section]
