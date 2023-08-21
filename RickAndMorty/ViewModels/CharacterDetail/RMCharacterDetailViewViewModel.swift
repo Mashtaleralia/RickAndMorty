@@ -96,9 +96,9 @@ final class RMCharacterDetailViewViewModel {
     }
     
     public func createOriginSectionLayout() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80)))
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 24)
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)), subitems: [item])
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension:  .fractionalHeight(1.0)))
+        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 24, bottom: 10, trailing: 24)
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         return section
     }
@@ -109,15 +109,14 @@ final class RMCharacterDetailViewViewModel {
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .fractionalHeight(1.0)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 10,
-                                                        leading: 5,
-                                                        bottom: 10,
-                                                        trailing: 8)
-        let group = NSCollectionLayoutGroup.horizontal(
+                                                        leading: 24,
+                                                        bottom: 16,
+                                                        trailing: 24)
+        let group = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(0.8),
-                heightDimension: .absolute(150.0)), subitems: [item])
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(112)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .groupPaging
         return section
     }
     
