@@ -13,13 +13,14 @@ final class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.hidesWhenStopped = true
+        spinner.color = .white
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(red: 0.02, green: 0.05, blue: 0.12, alpha: 1)
         addSubview(spinner)
         addConstraints()
     }

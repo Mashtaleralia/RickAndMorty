@@ -10,8 +10,14 @@ import UIKit
 final class RMCharacterPhotoCollectionViewCellViewModel {
     private let imageUrl: URL?
     
-    init(imageUrl: URL?) {
+    public let name: String
+    
+    public let status: String
+    
+    init(imageUrl: URL?, name: String, status: String) {
         self.imageUrl = imageUrl
+        self.name = name
+        self.status = status
     }
     
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {

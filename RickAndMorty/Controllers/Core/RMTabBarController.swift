@@ -32,6 +32,7 @@ final class RMTabBarController: UITabBarController {
         episodeVC.navigationItem.largeTitleDisplayMode = .automatic
         settingsVC.navigationItem.largeTitleDisplayMode = .automatic
         
+       
         let nav1 = UINavigationController(rootViewController:  characterVC)
         let nav2 = UINavigationController(rootViewController:  locationVC)
         let nav3 = UINavigationController(rootViewController:  episodeVC)

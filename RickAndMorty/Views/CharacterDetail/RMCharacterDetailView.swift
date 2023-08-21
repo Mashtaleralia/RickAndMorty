@@ -18,9 +18,11 @@ final class RMCharacterDetailView: UIView {
         self.viewModel = viewModel
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(red: 0.02, green: 0.05, blue: 0.12, alpha: 1)
         let collectionView = createCollectionView()
+        collectionView.backgroundColor = UIColor(red: 0.02, green: 0.05, blue: 0.12, alpha: 1)
         self.collectionView = collectionView
+        
          addSubviews(collectionView, spinner)
         addConstarints()
         

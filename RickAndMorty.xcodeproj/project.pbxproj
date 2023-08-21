@@ -43,6 +43,8 @@
 		84FE20EC2A8F8AD800E7DDF5 /* RMCharacterPhotoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE20EB2A8F8AD800E7DDF5 /* RMCharacterPhotoCollectionViewCellViewModel.swift */; };
 		84FE20EE2A8F8AF400E7DDF5 /* RMCharacterInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE20ED2A8F8AF400E7DDF5 /* RMCharacterInfoCollectionViewCellViewModel.swift */; };
 		84FE20F02A8F8B1000E7DDF5 /* RMCharacterEpisodeCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE20EF2A8F8B1000E7DDF5 /* RMCharacterEpisodeCollectionViewCellViewModel.swift */; };
+		84FE21822A92610700E7DDF5 /* RMCharacterEpisodeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE21812A92610600E7DDF5 /* RMCharacterEpisodeCollectionViewCell.swift */; };
+		84FE21B32A93638700E7DDF5 /* RMEpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE21B22A93638700E7DDF5 /* RMEpisodeDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		84FE20EB2A8F8AD800E7DDF5 /* RMCharacterPhotoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterPhotoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		84FE20ED2A8F8AF400E7DDF5 /* RMCharacterInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		84FE20EF2A8F8B1000E7DDF5 /* RMCharacterEpisodeCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterEpisodeCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		84FE21812A92610600E7DDF5 /* RMCharacterEpisodeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RMCharacterEpisodeCollectionViewCell.swift; sourceTree = "<group>"; };
+		84FE21B22A93638700E7DDF5 /* RMEpisodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				84986A052A83D49B00CC351A /* RMCharacterDetailViewController.swift */,
+				84FE21B22A93638700E7DDF5 /* RMEpisodeDetailViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				84986A072A83D9CF00CC351A /* RMCharacterDetailView.swift */,
 				84FE20E42A8F895F00E7DDF5 /* RMCharacterPhotoCollectionViewCell.swift */,
 				84FE20E62A8F8A3000E7DDF5 /* RMCharacterInfoCollectionViewCell.swift */,
+				84FE21812A92610600E7DDF5 /* RMCharacterEpisodeCollectionViewCell.swift */,
 				84FE20E82A8F8A6900E7DDF5 /* RMCharacterEpisodeCollectionViewCell.swift */,
 			);
 			path = CharacterDetail;
@@ -341,6 +347,7 @@
 			files = (
 				849869F92A80EE8900CC351A /* RMGetAllCharactersResponse.swift in Sources */,
 				84986A0A2A83DA1500CC351A /* RMCharacterDetailViewViewModel.swift in Sources */,
+				84FE21822A92610700E7DDF5 /* RMCharacterEpisodeCollectionViewCell.swift in Sources */,
 				849869EF2A7E814100CC351A /* RMOrigin.swift in Sources */,
 				849869FD2A80F45300CC351A /* RMCharacterListView.swift in Sources */,
 				849869F12A7E84E000CC351A /* RMSingleLocation.swift in Sources */,
@@ -354,6 +361,7 @@
 				849869DC2A7E552500CC351A /* RMEpisode.swift in Sources */,
 				849869C22A7E4EF100CC351A /* RMTabBarController.swift in Sources */,
 				84FE20EE2A8F8AF400E7DDF5 /* RMCharacterInfoCollectionViewCellViewModel.swift in Sources */,
+				84FE21B32A93638700E7DDF5 /* RMEpisodeDetailViewController.swift in Sources */,
 				84986A012A8125D900CC351A /* RMCharacterCollectionViewCell.swift in Sources */,
 				849869E32A7E561C00CC351A /* RMEpisodeViewController.swift in Sources */,
 				849869BE2A7E4EF100CC351A /* AppDelegate.swift in Sources */,

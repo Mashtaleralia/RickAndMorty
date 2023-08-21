@@ -17,8 +17,14 @@ final class RMCharacterViewController: UIViewController, RMCharacterListViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(red: 0.02, green: 0.05, blue: 0.12, alpha: 1)
        title = "Characters"
+        let appearance = UINavigationBarAppearance()
+       // appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+
+        navigationItem.standardAppearance = appearance
+        //navigationItem.scrollEdgeAppearance = appearance
         setUpView()
     }
     
