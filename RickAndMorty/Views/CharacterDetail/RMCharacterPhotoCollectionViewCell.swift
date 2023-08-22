@@ -70,7 +70,9 @@ final class RMCharacterPhotoCollectionViewCell: UICollectionViewCell {
         viewModel.fetchImage { [weak self] result in
             switch result {
             case .success(let data):
-                self?.imageView.image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    self?.imageView.image = UIImage(data: data)
+                }
             case .failure:
                 break
             }
