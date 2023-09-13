@@ -40,7 +40,9 @@ final class RMEpisodeDetailViewController: UIViewController, RMEpisodeDetailView
     }
     
     @objc func didTapShare() {
-        
+        let vc = RMSearchViewController(config: .init(type: .episode))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func addConstraints() {
