@@ -8,7 +8,7 @@
 import UIKit
 
 /// Controller to show and search for Lication
-final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate {
+final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate, RMLocationViewDelegate {
 
     private let primaryView = RMLocationView()
     
@@ -22,6 +22,7 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
         view.addSubview(primaryView)
         addSearchButton()
         addConstraints()
+        primaryView.delegate = self
         viewModel.delegate = self
         viewModel.fetchLocations()
     }
@@ -31,10 +32,18 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
     }
     
     @objc private func didTapSearch() {
-        
+        let vc = RMSearchViewController(config: .init(type: .location))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
+    //MARK: - RMLocationViewDelegate
     
+    func rmLocationView(_ locationView: RMLocationView, didSelect location: RMLocation) {
+        let vc = RMLocationDetailViewController(location: location)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
