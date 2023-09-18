@@ -56,6 +56,12 @@ final class RMSearchViewController: UIViewController {
         view.addSubview(searchView)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(didTapExecuteSearch))
         addConstraints()
+        searchView.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.presentKeyBoard()
     }
     
     @objc func didTapExecuteSearch() {
@@ -71,4 +77,12 @@ final class RMSearchViewController: UIViewController {
         ])
     }
 
+}
+
+// MARK: - SearchView delegate
+
+extension RMSearchViewController: RMSearchViewDelegate {
+    func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
+        print("Should present option picker")
+    }
 }
