@@ -37,12 +37,18 @@ final class RMLocationViewViewModel {
     
     public var isLoadingMoreLocations = false
     
+    private var didFinishPagination: (() -> Void)?
+    
     public private(set) var cellViewModels: [RMLocationTableViewCellViewModel] = []
     
     // MARK: - Init
     
     init() {
         
+    }
+    
+    public func didFinishPaginationBlock(_ block: @escaping () -> Void) {
+        self.didFinishPagination = block
     }
     
     public func location(at index: Int) -> RMLocation? {
@@ -59,6 +65,8 @@ final class RMLocationViewViewModel {
                 self?.apiInfo = model.info
                 self?.locations = model.results
                 DispatchQueue.main.async {
+                    // Notify via callback
+                
                     self?.delegate?.didFetchInitialLocations()
                 }
             case .failure(let error):
@@ -90,17 +98,18 @@ final class RMLocationViewViewModel {
             case .success(let responseModel):
                 let moreResults = responseModel.results
                 let info = responseModel.info
+                print(info.next)
                 print("More locations: \(moreResults.count)")
                 strongSelf.apiInfo = info
                  
-                DispatchQueue.main.async {
-                   
-                }
+               
+                self?.didFinishPagination?()
+                
                 strongSelf.cellViewModels.append(contentsOf: moreResults.compactMap {
                     return RMLocationTableViewCellViewModel(location: $0)
                     
                 })
-                strongSelf.isLoadingMoreLocations = true
+                strongSelf.isLoadingMoreLocations = false
                
                 //strongSelf.apiInfo = info
             case .failure(let error):

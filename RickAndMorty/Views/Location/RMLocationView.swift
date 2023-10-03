@@ -23,9 +23,16 @@ final class RMLocationView: UIView {
             UIView.animate(withDuration: 0.3) {
                 self.tableView.alpha = 1
             }
+            viewModel?.didFinishPaginationBlock { [weak self] in
+                DispatchQueue.main.async {
+                    self?.tableView.tableFooterView = nil
+                    self?.tableView.reloadData()
+                }
+            }
+
         }
     }
-    
+     
     private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -138,11 +145,9 @@ extension RMLocationView: UIScrollViewDelegate {
                     self?.showLoadingIndicator()
                 }
                 viewModel.fetchAdditionalLocations()
-                print("Refreshing table rows")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self?.tableView.reloadData()
-                }
+                //print("Refreshing table rows")
             }
+            t.invalidate()
         }
     }
     
