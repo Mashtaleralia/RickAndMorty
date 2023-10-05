@@ -16,14 +16,16 @@ final class RMSearchResultsView: UIView {
     
     weak var delegate: RMSearchResultsViewDelegate?
     
-    private var viewModel: RMSearchResultViewModel? {
+    private var viewModel: RMSearchResultsViewModel? {
         didSet {
             self.processViewModel()
         }
     }
-     
+    
+    /// CollectionView ViewModels
     private var collectionViewCellViewModels = [AnyHashable]()
     
+    /// TableView viewModels
     private var locationCellViewModels: [RMLocationTableViewCellViewModel] = []
     
     private let tableView: UITableView = {
@@ -65,7 +67,7 @@ final class RMSearchResultsView: UIView {
         guard let viewModel = viewModel else {
             return
         }
-        switch viewModel {
+        switch viewModel.results {
         case .locations(let viewModels):
             setUpTableView(viewModels: viewModels)
         case .episodes(let viewModels):
@@ -110,7 +112,7 @@ final class RMSearchResultsView: UIView {
         ])
     }
     
-    public func configure(with viewModel: RMSearchResultViewModel) {
+    public func configure(with viewModel: RMSearchResultsViewModel) {
         self.viewModel = viewModel
     }
     
@@ -139,7 +141,56 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
         100
     }
     
+    private func setUpTableFooter() {
+        let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 100))
+        tableView.tableFooterView = footer
+    }
+    
 }
+
+extension RMSearchResultsView: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !self.locationCellViewModels.isEmpty {
+            handlePagination(scrollView: scrollView)
+        } else {
+            handleEpisodeOrCharacterPagination(scrollView: scrollView)
+        }
+       
+    }
+    
+    private func handleEpisodeOrCharacterPagination(scrollView: UIScrollView) {
+        
+    }
+     
+    private func handlePagination(scrollView: UIScrollView) {
+        guard let viewModel = viewModel, !locationCellViewModels.isEmpty, viewModel.shouldShowLoadMoreIndicator,
+        !viewModel.isLoadingMoreResults else {
+            return
+        }
+        let offset = scrollView.contentOffset.y
+        let totalFixedHeight = scrollView.frame.size.height
+        let totalContentHeight = scrollView.contentSize.height
+    
+        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] t in
+                if offset >= (totalContentHeight - totalFixedHeight - 120) {
+                    DispatchQueue.main.async {
+                        self?.setUpTableFooter()
+                    }
+
+                    viewModel.fetchAdditionalLocations { [weak self] newResults in
+                        // Refresh table
+                        self?.tableView.tableFooterView = nil
+                        self?.locationCellViewModels = newResults
+                        self?.tableView.reloadData()
+                    }
+                }
+                t.invalidate()
+            }
+    }
+     
+}
+
 
 //MARK: - CollectionView
 

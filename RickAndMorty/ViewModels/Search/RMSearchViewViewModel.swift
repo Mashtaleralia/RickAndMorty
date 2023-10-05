@@ -12,7 +12,7 @@ final class RMSearchViewViewModel {
     
     private var optionMap: [RMSearchInputViewViewModel.DynamicOption: String] = [:]
     private var searchText = ""
-    private var searchResultsHandler: ((RMSearchResultViewModel) -> Void)?
+    private var searchResultsHandler: ((RMSearchResultsViewModel) -> Void)?
     private var optionMapUpdateBlock: (((RMSearchInputViewViewModel.DynamicOption, String)) -> Void)?
     private var noResultsHandler: (() -> Void)?
     private var searchResultModel: Codable?
@@ -24,7 +24,7 @@ final class RMSearchViewViewModel {
     
     // MARK: - Public
     
-    public func registerSearchResultHandler(_ block: @escaping (RMSearchResultViewModel) -> Void) {
+    public func registerSearchResultHandler(_ block: @escaping (RMSearchResultsViewModel) -> Void) {
         self.searchResultsHandler = block
     }
     
@@ -34,7 +34,9 @@ final class RMSearchViewViewModel {
     
     public func executeSearch() {
         print("Search text: \(searchText)")
-        
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
         // Build arguments
         var queryParams: [URLQueryItem] = [
             
@@ -121,30 +123,35 @@ final class RMSearchViewViewModel {
     }
     
     private func processSearchResults(_ model: Codable) {
-        var resultsVM: RMSearchResultViewModel?
+        var resultsVM: RMSearchResultType?
+        var nextUrl: String?
+       
+        
         if let characterResults = model as? RMGetAllCharactersResponse {
             
             resultsVM = .characters(characterResults.results.compactMap({
                 return RMCharacterCollectionViewCellViewModel(characterName: $0.name, characterStatus: $0.status, characterImageUrl: URL(string:$0.image))
             }))
+            nextUrl = characterResults.info.next
            
         } else if let episodeResults = model as? RMGetAllEpisodesResponse {
             
             resultsVM = .episodes(episodeResults.results.compactMap({
                 return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
             }))
-
+            nextUrl = episodeResults.info.next
           
         }  else if let locationResults = model as? RMGetAllLocationsResponse {
             
             resultsVM = .locations(locationResults.results.compactMap({
                 return RMLocationTableViewCellViewModel(location: $0)
             }))
-          
+            nextUrl = locationResults.info.next
         }
         if let results = resultsVM {
             self.searchResultModel = model
-            self.searchResultsHandler?(results)
+            let vm = RMSearchResultsViewModel(results: results, next: nextUrl)
+            self.searchResultsHandler?(vm)
         }
         else {
             // Error; No results view

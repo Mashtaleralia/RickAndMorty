@@ -11,7 +11,7 @@ protocol RMLocationViewViewModelDelegate: AnyObject {
     func didFetchInitialLocations()
 }
 
-final class RMLocationViewViewModel {
+class RMLocationViewViewModel {
     
     weak var delegate: RMLocationViewViewModelDelegate?
     
@@ -98,7 +98,6 @@ final class RMLocationViewViewModel {
             case .success(let responseModel):
                 let moreResults = responseModel.results
                 let info = responseModel.info
-                print(info.next)
                 print("More locations: \(moreResults.count)")
                 strongSelf.apiInfo = info
                  
