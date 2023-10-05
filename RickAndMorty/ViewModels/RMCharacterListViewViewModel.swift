@@ -143,12 +143,13 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         // TODO: - Abstract to extension
         let bounds = collectionView.bounds
         let width: CGFloat
-        let isIphone = UIDevice.current.userInterfaceIdiom == .pad
-        if isIphone {
-            width = (bounds.width-30)/2
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        if isIpad {
+            width = (bounds.width-50)/4
         } else {
             // mac | ipad
-            width = (bounds.width-50)/4
+            width = (bounds.width-30)/2
+            
         }
        
         return CGSize(width: width, height: width*1.25)
