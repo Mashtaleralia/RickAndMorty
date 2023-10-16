@@ -141,7 +141,7 @@ extension  RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
         let width = (bounds.width - 30)
-        return CGSize(width: width, height: width*0.25)
+        return CGSize(width: width, height: UIDevice.isIphone ? width*0.25 : width / 7)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -176,7 +176,7 @@ extension RMLocationDetailView {
                                                      leading: 5,
                                                      bottom: 10,
                                                      trailing: 5)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(240)), subitems: [item, item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: UIDevice.isIphone ? .absolute(240) : .fractionalHeight(0.5)), subitems: [item, item])
         let section = NSCollectionLayoutSection(group: group)
         return section
     }
