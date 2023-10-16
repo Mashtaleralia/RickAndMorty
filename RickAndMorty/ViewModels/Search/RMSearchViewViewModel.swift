@@ -106,7 +106,6 @@ final class RMSearchViewViewModel {
         case .location:
             makeSearchAPICall(RMGetAllLocationsResponse.self, request: request)
         }
- 
     }
     
     private func makeSearchAPICall<T: Codable>(_ type: T.Type, request: RMRequest) {
@@ -184,4 +183,20 @@ final class RMSearchViewViewModel {
         }
         return searchModel.results[index]
     }
+    
+    public func episodeSearchResult(at index: Int) -> RMEpisode? {
+        guard let searchModel = searchResultModel as? RMGetAllEpisodesResponse else {
+            return nil
+        }
+        return searchModel.results[index]
+    }
+    
+    public func characterSearchResult(at index: Int) -> RMCharacter? {
+        guard let searchModel = searchResultModel as? RMGetAllCharactersResponse else {
+            return nil
+        }
+        return searchModel.results[index]
+    }
+    
+    
 } 

@@ -9,6 +9,8 @@ import UIKit
 
 protocol RMSearchResultsViewDelegate: AnyObject {
     func rmSearchResult(_ resultsView: RMSearchResultsView, didTapLocationAt index: Int)
+    func rmSearchResult(_ resultsView: RMSearchResultsView, didTapCharacterAt index: Int)
+    func rmSearchResult(_ resultsView: RMSearchResultsView, didTapEpisodeAt index: Int)
 }
 
 /// Shows searchr esults UI (table or collection)
@@ -77,7 +79,6 @@ final class RMSearchResultsView: UIView {
             self.collectionViewCellViewModels = viewModels
             setUpCollectionView()
         }
-
     }
     
     private func setUpTableView(viewModels: [RMLocationTableViewCellViewModel]) {
@@ -173,15 +174,31 @@ extension RMSearchResultsView: UIScrollViewDelegate {
     
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] t in
                 if offset >= (totalContentHeight - totalFixedHeight - 120) {
+                    
+                    guard let strongSelf = self else {
+                        return
+                    }
                     DispatchQueue.main.async {
                         self?.showTableLoadingIndicator()
                     }
+                    
+                    let originalResults = strongSelf.collectionViewCellViewModels
 
                     viewModel.fetchAdditionalResults { [weak self] newResults in
                         // Refresh table
-                        
-                        self?.collectionViewCellViewModels = newResults
-                        self?.collectionView.reloadData()
+//                        let moreResults = responseModel.results
+                        DispatchQueue.main.async {
+                            let originalCount = strongSelf.collectionViewCellViewModels.count
+                            let newCount = newResults.count - originalCount
+                            let total = originalCount + newCount
+                            let startingIndex = total - newCount
+                            let indexPathToAdd: [IndexPath] = Array((startingIndex..<startingIndex+newCount).compactMap({
+                                return IndexPath(row: $0, section: 0)
+                            }))
+                            
+                            strongSelf.collectionViewCellViewModels = newResults
+                            strongSelf.collectionView.insertItems(at: indexPathToAdd)
+                        }
                     }
                 }
                 t.invalidate()
@@ -252,6 +269,18 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        switch viewModel.results {
+        case .episodes:
+            delegate?.rmSearchResult(self, didTapEpisodeAt: indexPath.row)
+        case .characters:
+            delegate?.rmSearchResult(self, didTapCharacterAt: indexPath.row)
+        case .locations:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -260,7 +289,7 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
         if currentViewModel is RMCharacterCollectionViewCellViewModel {
             // Character size
             let bounds = UIScreen.main.bounds
-            let width = (bounds.width - 30)/2
+            let width = UIDevice.isIphone ? (bounds.width - 30)/2 : (bounds.width - 30)/4
             return CGSize(width: width, height: width * 1.25)
         }
         

@@ -10,7 +10,8 @@ import UIKit
 protocol RMSearchViewDelegate: AnyObject {
     func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption)
     func rmSearchView(_ searchView: RMSearchView, didSelectLocation location: RMLocation)
-    
+    func rmSearchView(_ searchView: RMSearchView, didSelectEpisode episode: RMEpisode)
+    func rmSearchView(_ searchView: RMSearchView, didSelectCharacter character: RMCharacter)
 }
 
 final class RMSearchView: UIView {
@@ -134,5 +135,20 @@ extension RMSearchView: RMSearchResultsViewDelegate {
         }
         print("Location Tapped\(locationModel)")
         delegate?.rmSearchView(self, didSelectLocation: locationModel)
+    }
+    
+    func rmSearchResult(_ resultsView: RMSearchResultsView, didTapEpisodeAt index: Int) {
+        guard let episodeModel = viewModel.episodeSearchResult(at: index) else {
+            return
+        }
+        delegate?.rmSearchView(self, didSelectEpisode: episodeModel)
+    }
+    
+    func rmSearchResult(_ resultsView: RMSearchResultsView, didTapCharacterAt index: Int) {
+        guard let characterModel = viewModel.characterSearchResult(at: index) else {
+            return
+        }
+        print("Location Tapped\(characterModel)")
+        delegate?.rmSearchView(self, didSelectCharacter: characterModel)
     }
 }
