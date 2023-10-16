@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Interface to relay locations view events
 protocol RMLocationViewDelegate: AnyObject {
     func rmLocationView(_ locationView: RMLocationView, didSelect location: RMLocation)
 }
@@ -91,6 +92,8 @@ final class RMLocationView: UIView {
     
 }
 
+//MARK: - UITableViewDelegate
+
 extension RMLocationView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -102,6 +105,8 @@ extension RMLocationView: UITableViewDelegate {
         // NOtify controller of selection
     }
 }
+
+//MARK: - UITableViewDataSource
 
 extension RMLocationView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -129,6 +134,7 @@ extension RMLocationView: UITableViewDataSource {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 
 extension RMLocationView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -141,10 +147,8 @@ extension RMLocationView: UIScrollViewDelegate {
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.height
             
-            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
-                DispatchQueue.main.async {
-                    self?.showLoadingIndicator()
-                }
+            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 200) {
+                self?.showLoadingIndicator()
                 viewModel.fetchAdditionalLocations()
                 //print("Refreshing table rows")
             }
@@ -157,6 +161,7 @@ extension RMLocationView: UIScrollViewDelegate {
         let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 100))
         
         tableView.tableFooterView = footer
+        tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentSize.height), animated: true)
     }
     
 }
